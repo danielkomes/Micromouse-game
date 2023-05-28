@@ -13,23 +13,18 @@ def main():
     width = 500
     window = pygame.display.set_mode((width, width))
     maze = Maze.Maze()
-    mouse = Mouse.Mouse(maze, 0, 1, 1, window)
+    mazeStart = maze.FindStart()
+    mazeEnd = maze.FindEnd()
+    mouse = Mouse.Mouse(maze, mazeEnd[0], mazeStart[1], 0, window)
+    mouse.delay = 300
     interface = Interface.MouseBehavior()
     # redraw(window, mouse, maze)
 
     play = True
     while play:
-        # pygame.time.Clock().tick(1)
         interface.Run(mouse, maze)
-        # mouse.Move()
-        # redraw(window, mouse, maze)
-        # pygame.time.delay(500)
-        # mouse.Move()
-        # redraw(window, mouse, maze)
-        # pygame.time.delay(500)
-        # mouse.Rotate(True)
-        # redraw(window, mouse, maze)
-        # pygame.time.delay(500)
+        if mouse.getPos() == mazeEnd:
+            Win()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -37,6 +32,10 @@ def main():
                 return
             if pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 play = False
+
+
+def Win():
+    print("WIN")
 
 
 def drawMaze(window, maze):

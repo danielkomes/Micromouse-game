@@ -8,10 +8,20 @@ class MouseBehavior():
         self.turned = False
 
     def Run(self, mouse, maze):
+        mouse.Rotate(True)
+        mouse.Rotate(True)
         mouse.Move()
-        if (mouse.SensorForward()):
-            if self.turned:
-                mouse.Rotate(False)
-            else:
-                self.turned = True
-                mouse.Rotate(True)
+        mouse.Move()
+        mouse.Rotate(False)
+        mouse.Move()
+        mouse.Move()
+        mouse.Rotate(False)
+        mouse.Move()
+        mouse.Move()
+
+        # if (mouse.SensorForward()):
+        #     if self.turned:
+        #         mouse.Rotate(False)
+        #     else:
+        #         self.turned = True
+        #         mouse.Rotate(True)
