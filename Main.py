@@ -18,6 +18,8 @@ def main():
     while play:
         pygame.time.Clock().tick(1)
         mouse.Move()
+        mouse.Move()
+        mouse.Rotate(True)
         redraw(window, mouse, maze)
 
         for event in pygame.event.get():
@@ -49,7 +51,6 @@ def drawMouse(window, mouse, maze):
     size = (tileSizeX/2, tileSizeY/2)
 
     tempImage = pygame.transform.scale(image, size)
-    print(size)
     tempImage = pygame.transform.rotate(tempImage, -90 * mouse.direction)
     window.blit(tempImage, pos)
     # pygame.draw.rect(
