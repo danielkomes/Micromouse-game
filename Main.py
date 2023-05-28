@@ -1,26 +1,35 @@
 import Maze
 import Mouse
+import Interface
 
 import pygame
 import tkinter as tk
 
 image = pygame.image.load("bird.png")
+mouse, maze, window = 0, 0, 0
 
 
 def main():
     width = 500
     window = pygame.display.set_mode((width, width))
     maze = Maze.Maze()
-    mouse = Mouse.Mouse(maze, 0, 1, 1)
-    redraw(window, mouse, maze)
+    mouse = Mouse.Mouse(maze, 0, 1, 1, window)
+    interface = Interface.MouseBehavior()
+    # redraw(window, mouse, maze)
 
     play = True
     while play:
-        pygame.time.Clock().tick(1)
-        mouse.Move()
-        mouse.Move()
-        mouse.Rotate(True)
-        redraw(window, mouse, maze)
+        # pygame.time.Clock().tick(1)
+        interface.Run(mouse, maze)
+        # mouse.Move()
+        # redraw(window, mouse, maze)
+        # pygame.time.delay(500)
+        # mouse.Move()
+        # redraw(window, mouse, maze)
+        # pygame.time.delay(500)
+        # mouse.Rotate(True)
+        # redraw(window, mouse, maze)
+        # pygame.time.delay(500)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
