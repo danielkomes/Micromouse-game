@@ -4,6 +4,8 @@ import Mouse
 import pygame
 import tkinter as tk
 
+image = pygame.image.load("bird.png")
+
 
 def main():
     width = 500
@@ -42,10 +44,18 @@ def drawMaze(window, maze):
 def drawMouse(window, mouse, maze):
     tileSizeX = window.get_width()/len(maze.maze[0])
     tileSizeY = window.get_height()/len(maze.maze)
-    pygame.draw.rect(
-        window,
-        (100, 255, 255),
-        (mouse.x * tileSizeX + tileSizeX / 4, mouse.y * tileSizeY + tileSizeY / 4, tileSizeX / 2, tileSizeY / 2))
+    pos = (mouse.x * tileSizeX + tileSizeX / 4,
+           mouse.y * tileSizeY + tileSizeY / 4)
+    size = (tileSizeX/2, tileSizeY/2)
+
+    tempImage = pygame.transform.scale(image, size)
+    print(size)
+    tempImage = pygame.transform.rotate(tempImage, -90 * mouse.direction)
+    window.blit(tempImage, pos)
+    # pygame.draw.rect(
+    #     window,
+    #     (100, 255, 255),
+    #     (mouse.x * tileSizeX + tileSizeX / 4, mouse.y * tileSizeY + tileSizeY / 4, tileSizeX / 2, tileSizeY / 2))
 
 
 def redraw(window, mouse, maze):
