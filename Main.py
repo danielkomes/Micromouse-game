@@ -1,9 +1,11 @@
 import Maze
 import Mouse
 import Interface
+import Exceptions
 
 import pygame
 import tkinter as tk
+from tkinter import messagebox
 
 image = pygame.image.load("bird.png")
 mouse, maze, window = 0, 0, 0
@@ -15,16 +17,25 @@ def main():
     maze = Maze.Maze()
     mazeStart = maze.FindStart()
     mazeEnd = maze.FindEnd()
-    mouse = Mouse.Mouse(maze, mazeEnd[0], mazeStart[1], 0, window)
+    mouse = Mouse.Mouse(maze,
+                        mazeEnd[0], mazeStart[1], 0, window)
     mouse.delay = 300
     interface = Interface.MouseBehavior()
     # redraw(window, mouse, maze)
+    isWin = False
+    isLose = False
 
     play = True
     while play:
-        interface.Run(mouse, maze)
-        if mouse.getPos() == mazeEnd:
-            Win()
+        try:
+            if (not isWin) & (not isLose):
+                interface.Run(mouse, maze)  # MOUSE BEHAVIOR
+                if mouse.getPos() == mazeEnd:
+                    isWin = True
+                    Win()
+        except Exceptions.Lose:
+            Lose()
+            isLose = True
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -36,6 +47,23 @@ def main():
 
 def Win():
     print("WIN")
+    message_box("WIN", "Maze solved. Congratulations!")
+
+
+def Lose():
+    print("LOSE")
+    message_box("LOSE", "The mouse hit a wall. Try again.")
+
+
+def message_box(subject, content):
+    root = tk.Tk()
+    root.attributes("-topmost", True)
+    root.withdraw()
+    messagebox.showinfo(subject, content)
+    try:
+        root.destroy()
+    except:
+        pass
 
 
 def drawMaze(window, maze):

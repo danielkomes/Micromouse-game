@@ -1,4 +1,5 @@
 import pygame
+import Exceptions
 
 
 class Mouse:
@@ -25,6 +26,8 @@ class Mouse:
         elif self.__direction == 3:
             self.__x -= 1
         self.__redraw(self.__window, self.__maze)
+        if self.__maze.maze[self.__y][self.__x] == 1:
+            raise Exceptions.Lose
 
     def Rotate(self, isClockwise):
         if (isClockwise):
