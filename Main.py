@@ -19,7 +19,7 @@ def main():
     mazeEnd = maze.FindEnd()
     mouse = Mouse.Mouse(maze,
                         mazeEnd[0], mazeStart[1], 0, window)
-    mouse.delay = 300
+    mouse.delay = 1000
     interface = Interface.MouseBehavior()
     # redraw(window, mouse, maze)
     isWin = False
@@ -66,40 +66,50 @@ def message_box(subject, content):
         pass
 
 
-def drawMaze(window, maze):
-    tileSizeX = window.get_width()/len(maze.maze[0])
-    tileSizeY = window.get_height()/len(maze.maze)
-    for i in range(len(maze.maze)):
-        for j in range(len(maze.maze[0])):
-            # print(f'{i},{j}')
-            if maze.maze[i][j] == 1:
-                pygame.draw.rect(
-                    window,
-                    (100, 100, 100),
-                    (j * tileSizeX, i*tileSizeY, tileSizeX, tileSizeY))
+# def drawMaze(window, maze):
+#     tileSizeX = window.get_width()/len(maze.maze[0])
+#     tileSizeY = window.get_height()/len(maze.maze)
+#     for i in range(len(maze.maze)):
+#         for j in range(len(maze.maze[0])):
+#             # print(f'{i},{j}')
+#             if maze.maze[i][j] == 1:
+#                 pygame.draw.rect(
+#                     window,
+#                     (100, 100, 100),
+#                     (j * tileSizeX, i*tileSizeY, tileSizeX, tileSizeY))
+#             elif maze.maze[i][j] == 2:
+#                 pygame.draw.rect(
+#                     window,
+#                     (0, 200, 0),
+#                     (j * tileSizeX, i*tileSizeY, tileSizeX, tileSizeY))
+#             elif self.__maze.maze[i][j] == 3:
+#                 pygame.draw.rect(
+#                     self.__window,
+#                     (200, 0, 0),
+#                     (j * tileSizeX, i*tileSizeY, tileSizeX, tileSizeY))
 
 
-def drawMouse(window, mouse, maze):
-    tileSizeX = window.get_width()/len(maze.maze[0])
-    tileSizeY = window.get_height()/len(maze.maze)
-    pos = (mouse.x * tileSizeX + tileSizeX / 4,
-           mouse.y * tileSizeY + tileSizeY / 4)
-    size = (tileSizeX/2, tileSizeY/2)
+# def drawMouse(window, mouse, maze):
+#     tileSizeX = window.get_width()/len(maze.maze[0])
+#     tileSizeY = window.get_height()/len(maze.maze)
+#     pos = (mouse.x * tileSizeX + tileSizeX / 4,
+#            mouse.y * tileSizeY + tileSizeY / 4)
+#     size = (tileSizeX/2, tileSizeY/2)
 
-    tempImage = pygame.transform.scale(image, size)
-    tempImage = pygame.transform.rotate(tempImage, -90 * mouse.direction)
-    window.blit(tempImage, pos)
+#     tempImage = pygame.transform.scale(image, size)
+#     tempImage = pygame.transform.rotate(tempImage, -90 * mouse.direction)
+#     window.blit(tempImage, pos)
     # pygame.draw.rect(
     #     window,
     #     (100, 255, 255),
     #     (mouse.x * tileSizeX + tileSizeX / 4, mouse.y * tileSizeY + tileSizeY / 4, tileSizeX / 2, tileSizeY / 2))
 
 
-def redraw(window, mouse, maze):
-    window.fill((0, 0, 0))
-    drawMaze(window, maze)
-    drawMouse(window, mouse, maze)
-    pygame.display.update()
+# def redraw(window, mouse, maze):
+#     window.fill((0, 0, 0))
+#     drawMaze(window, maze)
+#     drawMouse(window, mouse, maze)
+#     pygame.display.update()
 
 
 main()

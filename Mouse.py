@@ -12,6 +12,7 @@ class Mouse:
         self.__window = window
         self.__image = pygame.image.load("bird.png")
         self.delay = 1000
+        self.__redraw(window, maze)
 
     def getPos(self):
         return (self.__y, self.__x)
@@ -58,6 +59,16 @@ class Mouse:
                     pygame.draw.rect(
                         self.__window,
                         (100, 100, 100),
+                        (j * tileSizeX, i*tileSizeY, tileSizeX, tileSizeY))
+                elif self.__maze.maze[i][j] == 2:
+                    pygame.draw.rect(
+                        self.__window,
+                        (0, 200, 0),
+                        (j * tileSizeX, i*tileSizeY, tileSizeX, tileSizeY))
+                elif self.__maze.maze[i][j] == 3:
+                    pygame.draw.rect(
+                        self.__window,
+                        (200, 0, 0),
                         (j * tileSizeX, i*tileSizeY, tileSizeX, tileSizeY))
 
     def __drawMouse(self, window, maze):
