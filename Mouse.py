@@ -19,15 +19,16 @@ class Mouse:
 
     def Move(self):
         lerp = 0
-        for i in range(60):
-            lerp = (1/60)
+        steps = 60
+        for i in range(steps):
+            lerp = (1/steps)
             if self.__direction == 0:
                 self.__y -= lerp
-            elif self.__direction == 1:
+            elif self.__direction == 90:
                 self.__x += lerp
-            elif self.__direction == 2:
+            elif self.__direction == 180:
                 self.__y += lerp
-            elif self.__direction == 3:
+            elif self.__direction == 270:
                 self.__x -= lerp
             self.__redraw(self.__window, self.__maze)
             currentY = round(self.__y)
@@ -37,22 +38,26 @@ class Mouse:
             pygame.time.delay(self.delay)
 
     def Rotate(self, isClockwise):
-        if (isClockwise):
-            self.__direction += 1
-        else:
-            self.__direction -= 1
-        self.__direction %= 4
-        self.__redraw(self.__window, self.__maze)
+        steps = 90
+        for i in range(steps):
+            lerp = 90/steps
+            if (isClockwise):
+                self.__direction += lerp
+            else:
+                self.__direction -= lerp
+            self.__direction %= 360
+            self.__redraw(self.__window, self.__maze)
+            pygame.time.delay(self.delay)
 
     def SensorForward(self):
         ret = False
         if self.__direction == 0:
             ret = self.__maze.maze[self.__y-1][self.__x] == 1
-        elif self.__direction == 1:
+        elif self.__direction == 90:
             ret = self.__maze.maze[self.__y][self.__x + 1] == 1
-        elif self.__direction == 2:
+        elif self.__direction == 180:
             ret = self.__maze.maze[self.__y + 1][self.__x] == 1
-        elif self.__direction == 3:
+        elif self.__direction == 270:
             ret = self.__maze.maze[self.__y][self.__x - 1] == 1
         return ret
 
@@ -84,7 +89,7 @@ class Mouse:
                self.__y * tileSizeY + tileSizeY / 4)
         size = (tileSizeX/2, tileSizeY/2)
         tempImage = pygame.transform.scale(self.__image, size)
-        tempImage = pygame.transform.rotate(tempImage, -90 * self.__direction)
+        tempImage = pygame.transform.rotate(tempImage, -1 * self.__direction)
         self.__window.blit(tempImage, pos)
 
     def __redraw(self, window, maze, rect=None):
