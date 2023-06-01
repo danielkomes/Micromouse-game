@@ -11,24 +11,30 @@ class Mouse:
         self.__direction = direction  # 0,1,2,3 -> up,right,down,left
         self.__window = window
         self.__image = pygame.image.load("bird.png")
-        self.delay = 1000
+        self.delay = 16
         self.__redraw(window, maze)
 
     def getPos(self):
-        return (self.__y, self.__x)
+        return (round(self.__y), round(self.__x))
 
     def Move(self):
-        if self.__direction == 0:
-            self.__y -= 1
-        elif self.__direction == 1:
-            self.__x += 1
-        elif self.__direction == 2:
-            self.__y += 1
-        elif self.__direction == 3:
-            self.__x -= 1
-        self.__redraw(self.__window, self.__maze)
-        if self.__maze.maze[self.__y][self.__x] == 1:
-            raise Exceptions.Lose
+        lerp = 0
+        for i in range(60):
+            lerp = (1/60)
+            if self.__direction == 0:
+                self.__y -= lerp
+            elif self.__direction == 1:
+                self.__x += lerp
+            elif self.__direction == 2:
+                self.__y += lerp
+            elif self.__direction == 3:
+                self.__x -= lerp
+            self.__redraw(self.__window, self.__maze)
+            currentY = round(self.__y)
+            currentX = round(self.__x)
+            if self.__maze.maze[currentY][currentX] == 1:
+                raise Exceptions.Lose
+            pygame.time.delay(self.delay)
 
     def Rotate(self, isClockwise):
         if (isClockwise):
@@ -81,9 +87,16 @@ class Mouse:
         tempImage = pygame.transform.rotate(tempImage, -90 * self.__direction)
         self.__window.blit(tempImage, pos)
 
-    def __redraw(self, window, maze):
-        pygame.time.delay(self.delay)
+    def __redraw(self, window, maze, rect=None):
+        # pygame.time.delay(self.delay)
         self.__window.fill((0, 0, 0))
         self.__drawMaze(window, maze)
         self.__drawMouse(window, maze)
-        pygame.display.update()
+        if rect:
+            x = rect[0]
+            y = rect[1]
+            w = rect[2]
+            h = rect[3]
+            pygame.display.update(x, y, w, h)
+        else:
+            pygame.display.flip()

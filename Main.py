@@ -19,7 +19,6 @@ def main():
     mazeEnd = maze.FindEnd()
     mouse = Mouse.Mouse(maze,
                         mazeEnd[0], mazeStart[1], 0, window)
-    mouse.delay = 1000
     interface = Interface.MouseBehavior()
     # redraw(window, mouse, maze)
     isWin = False
