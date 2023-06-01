@@ -8,11 +8,10 @@ class MouseBehavior():
         self.turned = False
 
     def Run(self, mouse, maze):
-        self.test1(mouse, maze)
-        # mouse.Move()
+        # self.testSolution(mouse, maze)
+        self.testSensors(mouse, maze)
 
-    def test1(self, mouse, maze):
-        # mouse.Move()
+    def testSolution(self, mouse, maze):
         mouse.Rotate(True)
         mouse.Rotate(True)
         mouse.Move()
@@ -23,3 +22,13 @@ class MouseBehavior():
         mouse.Rotate(False)
         mouse.Move()
         mouse.Move()
+
+    def testSensors(self, mouse, maze):
+        print(mouse.SensorForward())
+        mouse.Rotate(True)
+        print(mouse.SensorForward())
+        mouse.Rotate(True)
+        print(mouse.SensorForward())
+        mouse.Rotate(True)
+        print(mouse.SensorForward())
+        mouse.Rotate(True)
